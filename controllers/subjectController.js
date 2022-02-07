@@ -19,8 +19,44 @@ exports.createSubject = async (req, res) => {
 exports.getSubjects = async (req, res) => {
     console.log(req.body);
     try {
-        const items = await Subject.find();
-        res.json(items)
+        console.log("id"+ req.params.id);
+        console.log("idplan"+ req.params.planid);
+        res.json(req.params.id+req.params.planid)
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+
+}
+
+exports.getPlan = async (req, res) => {
+    console.log("searching plan");
+    console.log(req.body);
+    try {
+      let plan = await Plan.findById(req.params.id);
+      console.log("PLAN ID: " + plan._id);
+  
+      res.json(plan);
+  
+      if (!plan) {
+        res.status(404).send("No existe el plan");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("HUbo un error");
+    }
+  };
+
+exports.getSubject = async (req, res) => {
+    console.log("searching Subject");
+    console.log(req.body);
+    try {
+        const item = await Subject.findById(req._id);
+        res.json(item)
+        if(!item){
+            res.status(404).send("No existe ");
+        }
 
     } catch (error) {
         console.log(error);

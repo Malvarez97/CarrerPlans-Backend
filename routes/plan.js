@@ -5,6 +5,8 @@ const planController = require("../controllers/planController");
 // api/Plans
 router.post("/", planController.createPlan);
 router.get("/", planController.getPlans);
+router.get("/subject/:id", planController.getSubject);
+router.get("/", planController.getSubject);
 router.put("/:id", planController.updatePlan);
 router.get("/:id", planController.getPlan);
 router.delete("/:id", planController.deletePlan);

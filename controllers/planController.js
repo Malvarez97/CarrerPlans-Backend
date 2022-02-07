@@ -21,6 +21,25 @@ exports.createPlan = async (req, res) => {
   }
 };
 
+
+exports.getSubject = async (req, res) => {
+  console.log("req.body");
+  console.log(req.params);
+  try {
+      let item = await Plan.findById({_id:req.params.id});
+      let mats =  await item.data.years.map(year=>year.items).flat();
+      console.log(mats);
+      if (!item) {
+        res.status(404).send("No existe el producto");
+      }
+      res.json(item);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("HUbo un error");
+  }
+};
+
 exports.addSubject = async (req, res) => {
   console.log(req.body);
   try {
@@ -144,7 +163,7 @@ exports.getPlans = async (req, res) => {
     res.json(items);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Hubo un error");
+    res.status(500).send("Hubo un error en el getplans");
   }
 };
 
